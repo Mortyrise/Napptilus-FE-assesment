@@ -1,12 +1,10 @@
 import './App.css';
-import Header from './Components/Header';
-import ListView from './Pages/PLP-ProductListView';
+import PLP from './Pages/PLP';
 
 function App() {
   return (
     <>
-      <Header />
-      <ListView />
+      <PLP />
     </>
   );
 }
