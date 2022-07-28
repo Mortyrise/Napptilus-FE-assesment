@@ -2,10 +2,11 @@ import { createAction } from '@reduxjs/toolkit';
 import React from 'react';
 import { BsBagDash } from 'react-icons/bs';
 import '../Styles/Navbar.css';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   let cart;
-
+  let redirect = useNavigate();
   return (
     <div className='navbar-container'>
       <div>
@@ -15,6 +16,7 @@ function Header() {
           }
           alt='zara-logo'
           height={50}
+          onClick={() => redirect('/')}
         />
       </div>
       <div className='cart-container'>

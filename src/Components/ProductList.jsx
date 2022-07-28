@@ -3,7 +3,7 @@ import { getAllProducts } from '../Services/Service';
 import { useState, useEffect } from 'react';
 import Searchbar from '../Components/Searchbar';
 import Item from '../Components/Item';
-
+import '../Styles/ProductList.css';
 function ProductList() {
   const [searchInput, setSearchInput] = useState('hithere');
   const [phoneList, setPhoneList] = useState([]);
@@ -17,15 +17,15 @@ function ProductList() {
   const getData = async () => {
     try {
       let data = await getAllProducts();
-      setPhoneList(JSON.parse(data));
-      setFilteredPhoneList(JSON.parse(data));
+      setPhoneList(data);
+      setFilteredPhoneList(data);
     } catch (err) {
       console.log(err);
     }
   };
 
+  //fetching the Data from the API
   useEffect(() => {
-    //fetching the Data from the API
     getData();
   }, []);
 
@@ -37,7 +37,7 @@ function ProductList() {
         el.model.toLowerCase().includes(searchInput)
       );
     });
-    // Making usre if the Searchbar text is empty to print all the data
+    // Making sure the Searchbar text is empty to print all the data
     if (searchInput.length) {
       setFilteredPhoneList(filteredData);
     } else {
@@ -49,12 +49,15 @@ function ProductList() {
     <>
       <Searchbar setSearchInput={setSearchInput} />
       <div className='list-container'>
-        {filteredPhoneList &&
+        {filteredPhoneList ? (
+          filteredPhoneList &&
           filteredPhoneList.map((phone, index) => {
             return <Item phone={phone} key={phone.id} />;
-          })}
+          })
+        ) : (
+          <p>Loading List ...</p>
+        )}
       </div>
-      <p>No List loaded</p>
     </>
   );
 }

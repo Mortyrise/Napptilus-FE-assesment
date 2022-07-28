@@ -13,7 +13,8 @@ async function getAllProducts() {
 async function getProductDetailsByID(id) {
   try {
     const res = await fetch(URL + 'api/product/' + id);
-    return res.json;
+    const data = await res.text();
+    return JSON.parse(data);
   } catch (err) {
     throw new Error(err);
   }
@@ -28,6 +29,7 @@ async function addProductToCart(element) {
       },
       body: JSON.stringify(element),
     });
+    console.log(res, 'res');
     return res.json;
   } catch (err) {
     throw new Error(err);
